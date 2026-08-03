@@ -3,7 +3,7 @@ kind: Rollout
 metadata:
   name: nginx-secure
 spec:
-  replicas: 3
+  replicas: 2
 
   strategy:
     blueGreen:
