@@ -1,13 +1,19 @@
-apiVersion: apps/v1
+apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: nginx-secure
-  namespace: demo
 spec:
   replicas: 3
+
+  strategy:
+    blueGreen:
+      activeService: nginx-active
+      previewService: nginx-preview
+
   selector:
     matchLabels:
       app: nginx-secure
+
   template:
     metadata:
       labels:
@@ -16,11 +22,10 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+
       containers:
       - name: nginx
         image: nginxinc/nginx-unprivileged:stable-alpine
-        ports:
-        - containerPort: 8080
         securityContext:
           runAsNonRoot: true
           allowPrivilegeEscalation: false
