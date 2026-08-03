@@ -20,6 +20,13 @@ spec:
       labels:
         app: nginx-secure
     spec:
+    topologySpreadConstraints:26      
+    - maxSkew: 127
+      topologyKey: kubernetes.io/hostname28
+      whenUnsatisfiable: DoNotSchedule29
+      labelSelector:30
+        matchLabels:31
+          app: nginx-secure
       securityContext:
         seccompProfile:
           type: RuntimeDefault
