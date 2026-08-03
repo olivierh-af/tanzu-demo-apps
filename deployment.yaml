@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: nginx-secure
+  namespace: demo
 spec:
   replicas: 3
 
@@ -10,7 +11,7 @@ spec:
       activeService: nginx-active
       previewService: nginx-preview
       autoPromotionEnabled: false
-      
+
   selector:
     matchLabels:
       app: nginx-secure
@@ -19,14 +20,16 @@ spec:
     metadata:
       labels:
         app: nginx-secure
+
     spec:
-    topologySpreadConstraints:26      
-    - maxSkew: 127
-      topologyKey: kubernetes.io/hostname28
-      whenUnsatisfiable: DoNotSchedule29
-      labelSelector:30
-        matchLabels:31
-          app: nginx-secure
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: nginx-secure
+
       securityContext:
         seccompProfile:
           type: RuntimeDefault
@@ -34,6 +37,9 @@ spec:
       containers:
       - name: nginx
         image: nginxinc/nginx-unprivileged:mainline-alpine
+        ports:
+        - containerPort: 8080
+
         securityContext:
           runAsNonRoot: true
           allowPrivilegeEscalation: false
