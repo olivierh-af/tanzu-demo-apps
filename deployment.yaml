@@ -9,7 +9,8 @@ spec:
     blueGreen:
       activeService: nginx-active
       previewService: nginx-preview
-
+      autoPromotionEnabled: false
+      
   selector:
     matchLabels:
       app: nginx-secure
