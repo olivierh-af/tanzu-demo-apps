@@ -6,7 +6,8 @@ metadata:
 
 spec:
   replicas: 3
-
+  revisionHistoryLimit: 2
+  
   strategy:
     blueGreen:
       activeService: nginx-active
