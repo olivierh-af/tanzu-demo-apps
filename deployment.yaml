@@ -23,24 +23,24 @@ spec:
 
     spec:
       imagePullSecrets:
-      - name: ghcr-secret
+        - name: ghcr-secret
       topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
-        labelSelector:
-          matchLabels:
-            app: nginx-secure
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: nginx-secure
 
       securityContext:
         seccompProfile:
           type: RuntimeDefault
 
       containers:
-      - name: nginx
-      image: ghcr.io/olivierh-af/nginx-demo-app:latest
-        ports:
-        - containerPort: 8080
+        - name: nginx
+          image: ghcr.io/olivierh-af/nginx-demo-app:latest
+          ports:
+            - containerPort: 8080
 
         securityContext:
           runAsNonRoot: true
