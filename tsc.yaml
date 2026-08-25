@@ -4,4 +4,4 @@ topologySpreadConstraints:
   whenUnsatisfiable: DoNotSchedule
   labelSelector:
     matchLabels:
-      app: nginx-secure
+      app: afjhb1-nginx-demo
