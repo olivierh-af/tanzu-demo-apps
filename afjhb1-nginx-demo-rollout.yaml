@@ -22,6 +22,8 @@ spec:
         app: afjhb1-nginx-demo          # Updated pod template label
 
     spec:
+      imagePullSecrets:
+      - name: github-ghcr
       topologySpreadConstraints:        #
       - maxSkew: 1                      #
         topologyKey: kubernetes.io/hostname #
