@@ -36,7 +36,7 @@ spec:
 
       containers:                       #
       - name: nginx                     #
-        image: ghcr.io/olivierh-af/nginx-demo-app:latest #
+        image: nginxinc/nginx-unprivileged:mainline-alpine #
         ports:                          #
         - containerPort: 8080           #
 
