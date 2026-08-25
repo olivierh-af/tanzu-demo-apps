@@ -1,7 +1,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: nginx-secure
+  name: afjhb1-nginx-demo
   namespace: demo
 spec:
   minAvailable: 2
