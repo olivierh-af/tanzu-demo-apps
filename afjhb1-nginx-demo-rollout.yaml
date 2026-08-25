@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: afjhb1-nginx-demo               # Updated application name
+  namespace: demo                       #
+spec:
+  replicas: 3                           #
+
+  strategy:
+    blueGreen:
+      activeService: afjhb1-nginx-prod-001   # Updated active service binding
+      previewService: afjhb1-nginx-stg-001   # Updated preview service binding
+      autoPromotionEnabled: false            #
+
+  selector:
+    matchLabels:
+      app: afjhb1-nginx-demo            # Updated label selector to match application name
+
+  template:
+    metadata:
+      labels:
+        app: afjhb1-nginx-demo          # Updated pod template label
+
+    spec:
+      topologySpreadConstraints:        #
+      - maxSkew: 1                      #
+        topologyKey: kubernetes.io/hostname #
+        whenUnsatisfiable: ScheduleAnyway #
+        labelSelector:                  #
+          matchLabels:                  #
+            app: afjhb1-nginx-demo      # Updated to match new application label
+
+      securityContext:                  #
+        seccompProfile:                 #
+          type: RuntimeDefault          #
+
+      containers:                       #
+      - name: nginx                     #
+        image: nginxinc/nginx-unprivileged:mainline-alpine #
+        ports:                          #
+        - containerPort: 8080           #
+
+        securityContext:                #
+          runAsNonRoot: true            #
+          allowPrivilegeEscalation: false #
+          capabilities:                 #
+            drop:                       #
+            - ALL                       #
