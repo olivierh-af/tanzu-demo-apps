@@ -5,6 +5,7 @@ metadata:
   namespace: demo                       #
 spec:
   replicas: 3                           #
+  revisionHistoryLimit: 3
 
   strategy:
     blueGreen:
