@@ -39,7 +39,7 @@ spec:
 
       containers:                       #
       - name: nginx                     #
-        image: ghcr.io/olivierh-af/nginx-demo-app:e48ab757ecfbaf2b6f2e0f1e9a0f518d6c57426c
+        image: ghcr.io/olivierh-af/nginx-demo-app:49cb2749987f86be5e9173022b883dffebae0ec5
         ports:                          #
         - containerPort: 8080           #
 
